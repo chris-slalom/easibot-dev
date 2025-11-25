@@ -11,3 +11,16 @@ services:
     user: vscode
     volumes:
       - ..:/workspace:cached
+    depends_on:
+      - unstructured
+    environment:
+      - UNSTRUCTURED_API_URL=http://unstructured:8000
+
+  unstructured:
+    image: downloads.unstructured.io/unstructured-io/unstructured-api:latest
+    platform: linux/amd64
+    ports:
+      - "8001:8000"
+    environment:
+      - UNSTRUCTURED_API_KEY=${UNSTRUCTURED_API_KEY:-}
+    restart: unless-stopped

@@ -1,3 +1,61 @@
+# Welcome to the DevPod container
+
+This repo is used to create a custom dev environment for working on the EASIbot project. It uses Pulumi with Python for infrastructure as code, uv for Python package management and environments.  This is meant to be opened with the open source DevPods application, but should work with VS Code dev extensions or GitHub CodeSpaces since they are all based on the devcontainer spec.
+
+Docker compose is setting up the following containers for development:
+
+1. The primary dev environment from the Dockerfile
+2. An unstructured.io container used to process a wide range of file types for RAG support.  See additional details on this container setup below.
+
+## Unstructured.io API Container
+
+The development environment includes an [Unstructured.io](https://unstructured.io/) API container for processing documents into structured data. This enables ETL workflows for converting complex documents (PDFs, Word docs, images, etc.) into clean formats suitable for RAG (Retrieval-Augmented Generation) and language models.
+
+### Container Configuration
+
+**Image**: `downloads.unstructured.io/unstructured-io/unstructured-api:latest`
+
+- Official Unstructured API image that runs as a web service
+- Multi-platform support for both x86_64 and Apple Silicon
+
+**Ports**:
+
+- Container exposes port `8000` internally
+- Mapped to `8001` on your host machine
+- Access from dev container: `http://unstructured:8000`
+- Access from host: `http://localhost:8001`
+
+**Environment Variables**:
+
+- `UNSTRUCTURED_API_URL`: Automatically set to `http://unstructured:8000` in dev container
+- `UNSTRUCTURED_API_KEY`: Optional, can be set via environment variable
+
+### Usage in Your Code
+
+From your dev environment, you can call the Unstructured API:
+
+```python
+import os
+import requests
+
+api_url = os.getenv("UNSTRUCTURED_API_URL", "http://unstructured:8000")
+response = requests.post(f"{api_url}/general/v0/general", ...)
+```
+
+When you rebuild your DevPod, both containers will start and be networked together automatically.
+
+### References
+
+- [Unstructured Docker Installation](https://docs.unstructured.io/open-source/installation/docker-installation)
+- [Unstructured GitHub Repository](https://github.com/Unstructured-IO/unstructured)
+- [Unstructured Docker Hub](https://hub.docker.com/r/unstructuredio/unstructured)
+
+---
+
+# Default readme from the source container below
+
+---
+---
 # Python Development with uv and Ruff
 
 <div align="center">
