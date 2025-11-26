@@ -27,7 +27,9 @@
     },
     "containerEnv": {
         "DISPLAY": "dummy",
-        "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv"
+        "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv",
+        "UV_INSECURE_HOST": "github.com",
+        "RUSTLS_PLATFORM_VERIFIER": "0"
     },
     "postCreateCommand": "uv sync --frozen",
     "postStartCommand": "uv run pre-commit install",
