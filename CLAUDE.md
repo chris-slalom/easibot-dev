@@ -81,9 +81,6 @@ uv run mkdocs serve
 
 # Build documentation
 uv run mkdocs build
-
-# Deploy to GitHub Pages
-uv run mkdocs gh-deploy
 ```
 
 ## Architecture
@@ -228,19 +225,6 @@ The `docs/` directory is organized for MkDocs:
 - **docs/usecases/**: Real-world examples (Jupyter, FastAPI, OpenCV)
 
 When adding new utilities to `tools/`, add corresponding documentation to `docs/guides/tools/`.
-
-## CI/CD Workflows
-
-GitHub Actions workflows in `.github/workflows/`:
-- **docker.yml**: Validate Docker build
-- **devcontainer.yml**: Validate Dev Container configuration
-- **format.yml**: Check Ruff formatting
-- **labeler.yml**: Add label in GitHub
-- **lint.yml**: Run Pyright + Ruff linting
-- **test.yml**: Run pytest with coverage
-- **gh-deploy.yml**: Deploy documentation to GitHub Pages
-
-All workflows use the same nox commands as local development.
 
 ## Pull Request Process
 

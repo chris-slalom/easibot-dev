@@ -12,6 +12,10 @@
     "customizations": {
         "vscode": {
             "extensions": [
+                "anthropic.claude-code",
+                "github.copilot",
+                "github.copilot-chat",
+                "googlecloudtools.cloudcode",
                 "charliermarsh.ruff",
                 "kevinrose.vsc-python-indent",
                 "mosapride.zenkaku",
