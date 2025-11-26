@@ -6,9 +6,6 @@
         "vscode"
     ],
     "workspaceFolder": "/workspace",
-    "features": {
-        "ghcr.io/dhoeric/features/hadolint:1": {}
-    },
     "customizations": {
         "vscode": {
             "extensions": [

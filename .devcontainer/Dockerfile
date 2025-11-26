@@ -15,8 +15,11 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     # For OpenCV etc...
     libgl1 libglib2.0-0 \
-    # For Pulumi installation
+    # For Pulumi installation and certificate handling
     curl \
+    ca-certificates \
+    # Update CA certificates to ensure SSL/TLS works properly
+    && update-ca-certificates \
     # To remove the image size, it is recommended refresh the package cache as follows
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
