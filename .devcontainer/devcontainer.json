@@ -6,11 +6,6 @@
         "vscode"
     ],
     "workspaceFolder": "/workspace",
-    "features": {
-        "ghcr.io/dhoeric/features/hadolint:1": {
-            "version": "2.12.0"
-        }
-    },
     "remoteEnv": {
         "GIT_SSL_NO_VERIFY": "1"
     },
@@ -18,7 +13,6 @@
         "vscode": {
             "extensions": [
                 "charliermarsh.ruff",
-                "exiasr.hadolint",
                 "kevinrose.vsc-python-indent",
                 "mosapride.zenkaku",
                 "ms-azuretools.vscode-docker",
