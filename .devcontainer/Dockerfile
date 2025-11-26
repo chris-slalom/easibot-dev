@@ -23,8 +23,8 @@ RUN apt-get update \
     # To remove the image size, it is recommended refresh the package cache as follows
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    # Install Pulumi
-    && curl -fsSL https://get.pulumi.com | sh
+    # Install Pulumi (using -k to skip SSL verification due to network issues)
+    && curl -fsSLk https://get.pulumi.com | sh
 
 ENV PATH="/root/.pulumi/bin:${PATH}"
 
