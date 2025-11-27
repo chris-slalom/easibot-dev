@@ -7,6 +7,14 @@ Docker compose is setting up the following containers for development:
 1. The primary dev environment from the Dockerfile
 2. An unstructured.io container used to process a wide range of file types for RAG support.  See additional details on this container setup below.
 
+## Working with Bedrock
+
+### Model Info
+
+** Claude Sonnet 4.5 **
+Inference Profile ID: us.anthropic.claude-sonnet-4-5-20250929-v1:0
+Inference Profile ARN: arn:aws:bedrock:us-west-2:215352666168:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0
+
 ## Unstructured.io API Container
 
 The development environment includes an [Unstructured.io](https://unstructured.io/) API container for processing documents into structured data. This enables ETL workflows for converting complex documents (PDFs, Word docs, images, etc.) into clean formats suitable for RAG (Retrieval-Augmented Generation) and language models.
@@ -83,6 +91,14 @@ A production-ready Python development environment template using modern tools: *
 
 ## 📋 Table of Contents
 
+- [Welcome to the DevPod container](#welcome-to-the-devpod-container)
+  - [Working with Bedrock](#working-with-bedrock)
+    - [Model Info](#model-info)
+  - [Unstructured.io API Container](#unstructuredio-api-container)
+    - [Container Configuration](#container-configuration)
+    - [Usage in Your Code](#usage-in-your-code)
+    - [References](#references)
+- [Default readme from the source container below](#default-readme-from-the-source-container-below)
 - [Python Development with uv and Ruff](#python-development-with-uv-and-ruff)
   - [📋 Table of Contents](#-table-of-contents)
   - [✨ Features](#-features)
