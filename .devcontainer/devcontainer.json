@@ -39,7 +39,7 @@
         "UV_INSECURE_HOST": "github.com",
         "RUSTLS_PLATFORM_VERIFIER": "0"
     },
-    "postCreateCommand": "uv sync --frozen",
+    "postCreateCommand": "bash /workspace/first-time-dev-setup.sh",
     "postStartCommand": "uv run pre-commit install",
     "remoteUser": "vscode"
 }

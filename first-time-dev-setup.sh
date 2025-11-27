@@ -1,4 +1,7 @@
+#!/usr/bin/env bash
 # Base Dev Image Setup and Tests
+set -e  # Exit on error
+
 # Install dependencies
 uv sync
 
