@@ -13,6 +13,8 @@
         "vscode": {
             "extensions": [
                 "anthropic.claude-code",
+                "aws-amplify.aws-toolkit",
+                "context7.context7",
                 "github.copilot",
                 "github.copilot-chat",
                 "googlecloudtools.cloudcode",
@@ -35,8 +37,7 @@
         "DISPLAY": "dummy",
         "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv",
         "UV_INSECURE_HOST": "github.com",
-        "RUSTLS_PLATFORM_VERIFIER": "0",
-        "SSL_CERT_FILE": ""
+        "RUSTLS_PLATFORM_VERIFIER": "0"
     },
     "postCreateCommand": "uv sync --frozen",
     "postStartCommand": "uv run pre-commit install",
