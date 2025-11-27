@@ -1,4 +1,9 @@
 {
+    // Claude Code - AWS Bedrock Configuration
+    "claudeCode.apiProvider": "aws-bedrock",
+    "claudeCode.awsRegion": "us-west-2",
+    "claudeCode.awsProfile": "default",
+
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "notebook.codeActionsOnSave": {
