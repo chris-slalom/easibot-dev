@@ -29,7 +29,12 @@
                 "redhat.vscode-yaml",
                 "shardulm94.trailing-spaces",
                 "tamasfe.even-better-toml",
-                "yzhang.markdown-all-in-one"
+                "yzhang.markdown-all-in-one",
+                "exiasr.hadolint",
+                "usernamehw.errorlens",
+                "oderwat.indent-rainbow",
+                "pkief.material-icon-theme",
+                "eamodio.gitlens"
             ]
         }
     },
