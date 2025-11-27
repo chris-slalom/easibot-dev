@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(export SSL_CERT_FILE=\"\")",
-      "Bash(uv run pre-commit run:*)"
+      "Bash(uv run pre-commit run:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
