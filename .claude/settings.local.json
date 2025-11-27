@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(export SSL_CERT_FILE=\"\")",
+      "Bash(uv run pre-commit run:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
