@@ -23,8 +23,8 @@ RUN apt-get update \
     wget \
     # Update CA certificates to ensure SSL/TLS works properly
     && update-ca-certificates \
-    # Install hadolint via wget
-    && wget -qO /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 \
+    # Install hadolint via wget (skip certificate verification due to network issues)
+    && wget --no-check-certificate -qO /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 \
     && chmod +x /bin/hadolint \
     # To remove the image size, it is recommended refresh the package cache as follows
     && apt-get clean \
