@@ -11,10 +11,15 @@ services:
     user: vscode
     volumes:
       - ..:/workspace:cached
+      # Mount AWS credentials from host for SSO/temporary credentials
+      - ~/.aws:/home/vscode/.aws:ro
     depends_on:
       - unstructured
     environment:
       - UNSTRUCTURED_API_URL=http://unstructured:8000
+      # AWS configuration
+      - AWS_PROFILE=${AWS_PROFILE:-default}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-west-2}
 
   unstructured:
     image: downloads.unstructured.io/unstructured-io/unstructured-api:latest
