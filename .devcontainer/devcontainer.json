@@ -20,7 +20,6 @@
                 "charliermarsh.ruff",
                 "kevinrose.vsc-python-indent",
                 "mosapride.zenkaku",
-                "ms-azuretools.vscode-docker",
                 "ms-python.python",
                 "ms-python.vscode-pylance",
                 "ms-toolsai.jupyter",

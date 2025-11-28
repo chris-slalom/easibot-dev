@@ -32,7 +32,7 @@
         "editor.tabSize": 4
     },
     "[dockerfile]": {
-        "editor.defaultFormatter": "ms-azuretools.vscode-docker",
+        "editor.defaultFormatter": "exiasr.hadolint",
         "editor.formatOnSave": true
     },
     "[github-actions-workflow]": {
