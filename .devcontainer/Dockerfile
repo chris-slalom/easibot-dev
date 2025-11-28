@@ -10,6 +10,8 @@ ENV PYTHONDONTWRITEBYTECODE=True \
     PYTHONUNBUFFERED=True \
     UV_LINK_MODE=copy
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -26,12 +28,12 @@ RUN apt-get update \
     # Install hadolint via curl (skip certificate verification due to network issues)
     && curl -fsSLk -o /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 \
     && chmod +x /bin/hadolint \
+    # Install Pulumi to /usr/local so all users can access it
+    && curl -fsSLk https://get.pulumi.com | PULUMI_INSTALL_DIR=/usr/local sh \
     # To remove the image size, it is recommended refresh the package cache as follows
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    # Install Pulumi (using -k to skip SSL verification due to network issues)
-    && curl -fsSLk https://get.pulumi.com | sh
+    && rm -rf /var/lib/apt/lists/*
 
-ENV PATH="/root/.pulumi/bin:${PATH}"
+ENV PATH="/usr/local/bin:${PATH}"
 
 COPY --from=uv --chown=vscode: /uv /uvx /bin/
