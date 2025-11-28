@@ -23,6 +23,9 @@ RUN apt-get update \
     curl \
     ca-certificates \
     wget \
+    # For Context7 MCP server (requires Node.js and npx)
+    nodejs \
+    npm \
     # Update CA certificates to ensure SSL/TLS works properly
     && update-ca-certificates \
     # Install hadolint via curl (skip certificate verification due to network issues)
