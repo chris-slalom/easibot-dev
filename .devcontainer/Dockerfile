@@ -28,8 +28,10 @@ RUN apt-get update \
     # Install hadolint via curl (skip certificate verification due to network issues)
     && curl -fsSLk -o /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 \
     && chmod +x /bin/hadolint \
-    # Install Pulumi to /usr/local so all users can access it
-    && curl -fsSLk https://get.pulumi.com | PULUMI_INSTALL_DIR=/usr/local sh \
+    # Install Pulumi and move to /usr/local/bin so all users can access it
+    && curl -fsSLk https://get.pulumi.com | sh \
+    && mv /root/.pulumi/bin/* /usr/local/bin/ \
+    && rm -rf /root/.pulumi \
     # To remove the image size, it is recommended refresh the package cache as follows
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
