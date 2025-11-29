@@ -7,6 +7,27 @@ Docker compose is setting up the following containers for development:
 1. The primary dev environment from the Dockerfile
 2. An unstructured.io container used to process a wide range of file types for RAG support.  See additional details on this container setup below.
 
+## Infrastructure as Code with Pulumi
+
+This project uses [Pulumi](https://www.pulumi.com/) for managing AWS infrastructure. The infrastructure code is located in the [agents-pulumi/](agents-pulumi/) directory and uses Python with the `uv` toolchain for package management.
+
+### Quick Start
+
+```bash
+cd agents-pulumi
+export PULUMI_CONFIG_PASSPHRASE="easibot-dev"
+pulumi preview  # Preview changes
+pulumi up       # Deploy infrastructure
+```
+
+### What's Managed
+
+- **S3 Buckets**: Storage for RAG documents and application data
+- **CloudWatch Log Groups**: Application and Lambda logging
+- **IAM Roles & Policies**: Access control for AWS services
+
+For detailed setup instructions, configuration, and usage, see the [agents-pulumi/README.md](agents-pulumi/README.md).
+
 ## Working with Bedrock
 
 ### Model Info

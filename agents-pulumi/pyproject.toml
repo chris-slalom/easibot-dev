@@ -1,0 +1,10 @@
+[project]
+name = "easibot-iac"
+version = "0.1.0"
+description = "Infrastructure as Code for Enterprise Architecture and Systems Integration (EASI) chatbot to assist consultants in delivering Tech Strategy projects"
+requires-python = ">=3.10"
+
+dependencies = [
+    "pulumi>=3.0.0,<4.0.0",
+    "pulumi-aws>=6.0.0,<7.0.0",
+]

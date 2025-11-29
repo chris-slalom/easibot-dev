@@ -1,0 +1,6 @@
+name: easibot-iac
+description: Infrastructure as Code for Enterprise Architecture and Systems Integration (EASI) chatbot to assist consultants in delivering Tech Strategy projects
+runtime:
+  name: python
+  options:
+    toolchain: uv

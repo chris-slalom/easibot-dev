@@ -6,7 +6,11 @@
       "Bash(git push:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(curl -v https://www.pulumi.com)",
+      "Bash(pulumi new:*)",
+      "Bash(git config:*)",
+      "Bash(git clone:*)"
     ],
     "deny": [],
     "ask": []
