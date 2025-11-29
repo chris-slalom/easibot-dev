@@ -92,7 +92,7 @@ The `tools/` package provides three main utility modules:
 #### **tools/logger/** - Dual-Mode Logging System
 - `Logger` class extends `logging.Logger` with environment-aware formatting
 - **LogType.LOCAL**: Colored console output via `LocalFormatter` for development
-- **LogType.GOOGLE_CLOUD**: Structured JSON via `GoogleCloudFormatter` for production
+- **LogType.CLOUDWATCH**: Structured JSON via `CloudWatchFormatter` for production (AWS CloudWatch compatible)
 - Key pattern: Use `Settings.IS_LOCAL` to switch between modes automatically
 
 ```python
@@ -102,7 +102,7 @@ from tools.logger import Logger, LogType
 settings = Settings()
 logger = Logger(
     __name__,
-    log_type=LogType.LOCAL if settings.IS_LOCAL else LogType.GOOGLE_CLOUD
+    log_type=LogType.LOCAL if settings.IS_LOCAL else LogType.CLOUDWATCH
 )
 ```
 

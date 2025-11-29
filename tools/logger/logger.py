@@ -1,11 +1,7 @@
 import logging
 import sys
-from typing import TYPE_CHECKING
 
 from tools.logger.type import LogType
-
-if TYPE_CHECKING:
-    from google.auth.credentials import Credentials
 
 
 class Logger(logging.Logger):
@@ -23,36 +19,23 @@ class Logger(logging.Logger):
     def __init__(
         self,
         name: str,
-        project: str | None = None,
-        credentials: Credentials | None = None,
         log_type: LogType = LogType.LOCAL,
     ) -> None:
-        """Initialize local logger formatter.
+        """Initialize logger formatter.
 
         Args:
             name (str): Logger name
-            project (str | None, optional): Google Cloud Project ID. Defaults to None.
-            credentials (Credentials | None, optional): Credentials for Google Cloud.
-                                                        Defaults to None.
-            log_type (LogType, optional): Local or something.
+            log_type (LogType, optional): Local or CloudWatch.
                                           Defaults to LogType.LOCAL.
 
         """
         super().__init__(name=name)
 
-        if log_type == LogType.GOOGLE_CLOUD:
-            import google.cloud.logging
-            from google.cloud.logging_v2.handlers import StructuredLogHandler
+        if log_type == LogType.CLOUDWATCH:
+            from tools.logger import CloudWatchFormatter
 
-            from tools.logger import GoogleCloudFormatter
-
-            client = google.cloud.logging.Client(
-                project=project, credentials=credentials
-            )
-            client.setup_logging()
-
-            formatter = GoogleCloudFormatter()
-            handler = StructuredLogHandler(stream=sys.stdout)
+            formatter = CloudWatchFormatter()
+            handler = logging.StreamHandler(stream=sys.stdout)
 
             handler.setFormatter(formatter)
             self.addHandler(handler)

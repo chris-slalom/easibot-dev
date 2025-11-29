@@ -300,7 +300,7 @@ uv run mkdocs gh-deploy
 .
 ├── tools/                  # Reusable utility modules
 │   ├── config/             # Configuration management (Settings, FastAPI config)
-│   ├── logger/             # Logging utilities (Local & Google Cloud formatters)
+│   ├── logger/             # Logging utilities (Local & AWS CloudWatch formatters)
 │   └── tracer/             # Performance tracing (Timer decorator/context manager)
 ├── tests/                  # Test suite (mirrors tools/ structure)
 │   └── tools/              # Unit tests for utility modules
@@ -335,8 +335,8 @@ from tools.logger import Logger, LogType
 # Local development (colored console output)
 logger = Logger(__name__, log_type=LogType.LOCAL)
 
-# Google Cloud (structured JSON logging)
-logger = Logger(__name__, log_type=LogType.GOOGLE_CLOUD, project="my-project")
+# AWS CloudWatch (structured JSON logging)
+logger = Logger(__name__, log_type=LogType.CLOUDWATCH)
 
 logger.info("Application started")
 ```

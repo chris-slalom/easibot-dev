@@ -7,7 +7,7 @@ The Logger module provides a flexible logging system that works seamlessly in bo
 The Logger extends Python's standard `logging.Logger` with support for:
 
 - **Local development** - Colored, formatted console output
-- **Google Cloud** - Structured JSON logging compatible with Google Cloud Logging
+- **AWS CloudWatch** - Structured JSON logging compatible with AWS CloudWatch
 - **Easy switching** - Change modes with a single parameter
 - **Standard interface** - Uses familiar logging methods (`.info()`, `.error()`, etc.)
 
@@ -36,24 +36,22 @@ logger.error("An error occurred")
 2038-01-19 03:14:07,000 | ERROR    | __main__:main:10 - An error occurred
 ```
 
-### Google Cloud Logging
+### AWS CloudWatch Logging
 
-For production deployment on Google Cloud, use `LogType.GOOGLE_CLOUD`:
+For production deployment on AWS, use `LogType.CLOUDWATCH`:
 
 ```python
 from tools.logger import Logger, LogType
 
 logger = Logger(
     __name__,
-    log_type=LogType.GOOGLE_CLOUD,
-    project="my-gcp-project",
-    credentials=credentials  # Optional: pass credentials object
+    log_type=LogType.CLOUDWATCH,
 )
 
 logger.info("Application started in production")
 ```
 
-This outputs structured JSON logs that integrate with Google Cloud Logging.
+This outputs structured JSON logs that integrate with AWS CloudWatch.
 
 ## Environment-Based Configuration
 
@@ -66,7 +64,7 @@ from tools.logger import Logger, LogType
 settings = Settings()
 logger = Logger(
     __name__,
-    log_type=LogType.LOCAL if settings.IS_LOCAL else LogType.GOOGLE_CLOUD
+    log_type=LogType.LOCAL if settings.IS_LOCAL else LogType.CLOUDWATCH
 )
 
 logger.info("Logger configured based on environment")
@@ -141,8 +139,7 @@ from tools.logger import Logger, LogType
 settings = Settings()
 logger = Logger(
     __name__,
-    log_type=LogType.LOCAL if settings.IS_LOCAL else LogType.GOOGLE_CLOUD,
-    project=settings.gcp_project if not settings.IS_LOCAL else None
+    log_type=LogType.LOCAL if settings.IS_LOCAL else LogType.CLOUDWATCH
 )
 
 app = FastAPI()
@@ -183,12 +180,12 @@ The `LocalFormatter` provides colored, human-readable output for local developme
 - Module and line number information
 - Clean formatting for console output
 
-### GoogleCloudFormatter
+### CloudWatchFormatter
 
-The `GoogleCloudFormatter` produces structured JSON logs compatible with Google Cloud Logging:
+The `CloudWatchFormatter` produces structured JSON logs compatible with AWS CloudWatch:
 
 - Structured JSON format
-- Severity levels mapped to Google Cloud standards
+- Severity levels mapped to AWS CloudWatch standards
 - Automatic metadata inclusion
 - Stack trace formatting for errors
 
@@ -253,7 +250,7 @@ except Exception:
 The Logger module uses the following configuration:
 
 - **LogType.LOCAL**: Colored console output via `LocalFormatter`
-- **LogType.GOOGLE_CLOUD**: Structured JSON via `GoogleCloudFormatter`
+- **LogType.CLOUDWATCH**: Structured JSON via `CloudWatchFormatter`
 
 ### Customizing Formatters
 

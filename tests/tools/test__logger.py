@@ -21,18 +21,14 @@ class TestLocalLogger:
         assert self.logger.name == __name__
 
 
-class TestGoogleCloudLogger:
-    """Test class for Google Cloud logger."""
+class TestCloudWatchLogger:
+    """Test class for AWS CloudWatch logger."""
 
     def setup_method(self) -> None:
         """Set up logger."""
-        from google.auth.credentials import AnonymousCredentials
-
         self.logger = Logger(
             name=__name__,
-            project=__name__,
-            credentials=AnonymousCredentials(),
-            log_type=LogType.GOOGLE_CLOUD,
+            log_type=LogType.CLOUDWATCH,
         )
 
     def test_log(self) -> None:

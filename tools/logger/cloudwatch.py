@@ -1,23 +1,23 @@
 import logging
 
 
-class GoogleCloudFormatter(logging.Formatter):
-    """Formatter for Google Cloud logger."""
+class CloudWatchFormatter(logging.Formatter):
+    """Formatter for AWS CloudWatch logger."""
 
     def format(self, record: logging.LogRecord) -> str:
-        """Style for Google Cloud logger.
+        """Style for AWS CloudWatch logger.
 
         Args:
             record (logging.LogRecord): Raw log
 
         Returns:
-            str: Log format for Google Cloud
+            str: Log format for AWS CloudWatch
 
         """
         from pydantic import BaseModel, PositiveInt
 
         class Record(BaseModel):
-            """Record for Google Cloud."""
+            """Record for AWS CloudWatch."""
 
             name: str
             line: PositiveInt
