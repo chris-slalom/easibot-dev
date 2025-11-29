@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     aws_profile: str | None = None
 
     # Bedrock Configuration
-    bedrock_model_id: str = "anthropic.claude-sonnet-4-20250514-v1:0"
+    bedrock_model_id: str = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
     bedrock_region: str = "us-west-2"
 
     # S3 Configuration
