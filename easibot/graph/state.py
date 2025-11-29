@@ -1,8 +1,9 @@
 """State definitions for the EASI Bot consultant workflow."""
 
+from operator import add
 from typing import Annotated, Literal
 
-from langgraph.graph import MessagesState, add_messages
+from langgraph.graph import MessagesState
 from pydantic import BaseModel, Field
 
 
@@ -50,12 +51,12 @@ class ConsultantState(MessagesState):
     )
 
     # Research and knowledge
-    research_findings: Annotated[list[ResearchFinding], add_messages] = Field(
+    research_findings: Annotated[list[ResearchFinding], add] = Field(
         default_factory=list, description="Accumulated research findings"
     )
 
     # Deliverables and artifacts
-    deliverables: Annotated[list[Deliverable], add_messages] = Field(
+    deliverables: Annotated[list[Deliverable], add] = Field(
         default_factory=list, description="Created deliverables"
     )
 

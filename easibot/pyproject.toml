@@ -14,8 +14,16 @@ dependencies = [
     "pydantic-settings>=2.7.0",
 ]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "pytest>=8.0.0",
     "pytest-asyncio>=0.24.0",
 ]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["easibot*"]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
