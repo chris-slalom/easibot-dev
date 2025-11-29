@@ -9,12 +9,12 @@ Docker compose is setting up the following containers for development:
 
 ## Infrastructure as Code with Pulumi
 
-This project uses [Pulumi](https://www.pulumi.com/) for managing AWS infrastructure. The infrastructure code is located in the [agents-pulumi/](agents-pulumi/) directory and uses Python with the `uv` toolchain for package management.
+This project uses [Pulumi](https://www.pulumi.com/) for managing AWS infrastructure. The infrastructure code is located in the [agents_pulumi/](agents_pulumi/) directory and uses Python with the `uv` toolchain for package management.
 
 ### Quick Start
 
 ```bash
-cd agents-pulumi
+cd agents_pulumi
 export PULUMI_CONFIG_PASSPHRASE="easibot-dev"
 pulumi preview  # Preview changes
 pulumi up       # Deploy infrastructure
@@ -26,7 +26,7 @@ pulumi up       # Deploy infrastructure
 - **CloudWatch Log Groups**: Application and Lambda logging
 - **IAM Roles & Policies**: Access control for AWS services
 
-For detailed setup instructions, configuration, and usage, see the [agents-pulumi/README.md](agents-pulumi/README.md).
+For detailed setup instructions, configuration, and usage, see the [agents_pulumi/README.md](agents_pulumi/README.md).
 
 ## Working with Bedrock
 

@@ -16,7 +16,7 @@ Infrastructure as Code for the Enterprise Architecture and Systems Integration (
 This project uses `uv` for Python package management. Pulumi is configured to use the `uv` toolchain (see [Pulumi.yaml](Pulumi.yaml:6)).
 
 ```bash
-cd agents-pulumi
+cd agents_pulumi
 uv sync
 ```
 

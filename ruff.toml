@@ -81,5 +81,3 @@ line-ending = "auto"
 [lint.per-file-ignores]
 # Ignore all directories named `tests`.
 "tests/**" = ["INP001", "S101"]
-# Ignore module name check for agents-pulumi (hyphenated directory name)
-"agents-pulumi/**" = ["N999"]
