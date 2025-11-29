@@ -80,6 +80,7 @@ line-ending = "auto"
 
 [lint.per-file-ignores]
 # Ignore all directories named `tests`.
-"tests/**" = ["INP001", "S101"]
+"tests/**" = ["INP001", "S101", "ANN001", "ANN201", "PLR2004"]
+"**/tests/**" = ["INP001", "S101", "ANN001", "ANN201", "PLR2004"]
 # Ignore TODOs and placeholders in easibot (work in progress)
 "easibot/**" = ["TD002", "TD003", "FIX002", "ARG001", "ARG002", "F841", "ANN204", "ANN201", "ANN401", "RET504", "E501", "C901", "BLE001", "TC001"]

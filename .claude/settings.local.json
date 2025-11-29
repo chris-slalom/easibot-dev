@@ -10,7 +10,8 @@
       "Bash(curl -v https://www.pulumi.com)",
       "Bash(pulumi new:*)",
       "Bash(git config:*)",
-      "Bash(git clone:*)"
+      "Bash(git clone:*)",
+      "Bash(uv run pytest:*)"
     ],
     "deny": [],
     "ask": []
