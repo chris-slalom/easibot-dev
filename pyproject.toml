@@ -1,10 +1,7 @@
 [project]
-name = "default"
+name = "easibot-workspace"
 version = "0.1.0"
-description = "This repository contains configurations to set up a Python development environment using VSCode's Dev Container feature. The environment includes uv and Ruff."
-
-authors = [{ name = "a5chin", email = "a5chin.origin+contact@gmail.com" }]
-maintainers = [{ name = "a5chin", email = "a5chin.origin+contact@gmail.com" }]
+description = "EASI Bot workspace with application code, infrastructure, and shared utilities"
 
 requires-python = ">=3.10"
 readme = "README.md"
@@ -14,6 +11,12 @@ dependencies = [
     "pydantic>=2.12.0",
     "pydantic-settings>=2.11.0",
 ]
+
+[tool.uv.workspace]
+members = ["easibot", "agents_pulumi"]
+
+[tool.uv.sources]
+easibot = { workspace = true }
 
 [dependency-groups]
 dev = [
