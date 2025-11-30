@@ -108,6 +108,8 @@ All agent executions are automatically traced when enabled, providing:
 
 ### Run Locally (Development)
 
+**Option 1: Direct Python execution**
+
 ```python
 from easibot.agent import graph
 from easibot.graph.state import ConsultantState
@@ -122,6 +124,25 @@ state = ConsultantState(
 result = graph.invoke(state)
 print(result["messages"][-1].content)
 ```
+
+**Option 2: Docker (recommended for testing production builds)**
+
+```bash
+# Build the Docker image
+docker build -t easibot:latest .
+
+# Run with Docker Compose
+docker-compose up
+
+# Or run standalone
+docker run -it --rm \
+  -e AWS_DEFAULT_REGION=us-west-2 \
+  -e BEDROCK_MODEL_ID=us.anthropic.claude-sonnet-4-5-20250929-v1:0 \
+  -v ~/.aws:/home/easibot/.aws:ro \
+  easibot:latest
+```
+
+See [Dockerfile](Dockerfile) and [docker-compose.yml](docker-compose.yml) for configuration details.
 
 ## Adding New Specialists
 
@@ -150,7 +171,40 @@ workflow.add_node("new_specialist", new_specialist.work)
 
 ## Deployment
 
-See [../agents_pulumi/README.md](../agents_pulumi/README.md) for deployment with Pulumi to AWS.
+### Docker Image
+
+The easibot agent can be packaged as a Docker container for deployment to AWS ECS, Lambda, or other container orchestration platforms.
+
+**Build the production image:**
+
+```bash
+# Standard build
+docker build -t easibot:latest .
+
+# Build with specific Python version
+docker build --build-arg PYTHON_VERSION=3.14 -t easibot:latest .
+
+# Build for multi-arch (ARM64 for Lambda/Graviton)
+docker buildx build --platform linux/amd64,linux/arm64 -t easibot:latest .
+```
+
+**Tag and push to ECR:**
+
+```bash
+# Authenticate with ECR
+aws ecr get-login-password --region us-west-2 | \
+  docker login --username AWS --password-stdin <account-id>.dkr.ecr.us-west-2.amazonaws.com
+
+# Tag the image
+docker tag easibot:latest <account-id>.dkr.ecr.us-west-2.amazonaws.com/easibot:latest
+
+# Push to ECR
+docker push <account-id>.dkr.ecr.us-west-2.amazonaws.com/easibot:latest
+```
+
+### Infrastructure
+
+See [../agents_pulumi/README.md](../agents_pulumi/README.md) for deploying infrastructure with Pulumi to AWS.
 
 ## Next Steps / TODO
 

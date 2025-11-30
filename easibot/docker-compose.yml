@@ -1,0 +1,97 @@
+# Docker Compose for EASIBot local testing and development
+# This is separate from the dev container setup
+
+services:
+  easibot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UV_VERSION: latest
+        PYTHON_VERSION: "3.14"
+    image: easibot:latest
+    container_name: easibot-agent
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # AWS Configuration
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-us-west-2}
+      AWS_REGION: ${AWS_REGION:-us-west-2}
+
+      # Bedrock Configuration
+      BEDROCK_MODEL_ID: ${BEDROCK_MODEL_ID:-us.anthropic.claude-sonnet-4-5-20250929-v1:0}
+      BEDROCK_REGION: ${BEDROCK_REGION:-us-west-2}
+
+      # S3 Configuration
+      RAG_BUCKET_NAME: ${RAG_BUCKET_NAME:-easibot-rag}
+
+      # Application Configuration
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+
+      # Langfuse Configuration (optional)
+      ENABLE_LANGFUSE: ${ENABLE_LANGFUSE:-false}
+      LANGFUSE_HOST: ${LANGFUSE_HOST:-}
+      LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
+      LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}
+
+    volumes:
+      # Mount AWS credentials (read-only)
+      - ~/.aws:/home/easibot/.aws:ro
+
+    # Optional: Uncomment to connect to local Langfuse
+    # depends_on:
+    #   - langfuse
+
+    networks:
+      - easibot-network
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # Optional: Langfuse for observability (uncomment to enable)
+  # langfuse-db:
+  #   image: postgres:15-alpine
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_USER: langfuse
+  #     POSTGRES_PASSWORD: langfuse
+  #     POSTGRES_DB: langfuse
+  #   volumes:
+  #     - langfuse-db-data:/var/lib/postgresql/data
+  #   networks:
+  #     - easibot-network
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U langfuse"]
+  #     interval: 3s
+  #     timeout: 3s
+  #     retries: 10
+
+  # langfuse:
+  #   image: langfuse/langfuse:latest
+  #   restart: unless-stopped
+  #   depends_on:
+  #     langfuse-db:
+  #       condition: service_healthy
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     DATABASE_URL: postgresql://langfuse:langfuse@langfuse-db:5432/langfuse
+  #     NEXTAUTH_URL: http://localhost:3000
+  #     NEXTAUTH_SECRET: ${LANGFUSE_NEXTAUTH_SECRET:-changeme-secret-key-min-32-chars}
+  #     SALT: ${LANGFUSE_SALT:-changeme-salt-min-32-chars}
+  #   networks:
+  #     - easibot-network
+
+networks:
+  easibot-network:
+    driver: bridge
+
+# volumes:
+#   langfuse-db-data:
