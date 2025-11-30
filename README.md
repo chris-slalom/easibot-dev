@@ -6,6 +6,7 @@ Docker compose is setting up the following containers for development:
 
 1. The primary dev environment from the Dockerfile
 2. An unstructured.io container used to process a wide range of file types for RAG support.  See additional details on this container setup below.
+3. Langfuse for LLM observability and tracing (see [easibot/LANGFUSE.md](easibot/LANGFUSE.md) for details)
 
 ## Infrastructure as Code with Pulumi
 

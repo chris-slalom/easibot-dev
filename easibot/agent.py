@@ -1,5 +1,8 @@
 """Main LangGraph workflow for EASI Bot consultant system."""
 
+import logging
+import os
+
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph
 
@@ -11,12 +14,18 @@ from easibot.agents import (
 )
 from easibot.graph.state import ConsultantState
 
+logger = logging.getLogger(__name__)
 
-def create_consultant_graph():
+
+def create_consultant_graph(*, enable_langfuse: bool | None = None):
     """Create the multi-agent consultant workflow graph.
 
+    Args:
+        enable_langfuse: Optional boolean to enable Langfuse tracing.
+            If None, reads from ENABLE_LANGFUSE environment variable.
+
     Returns:
-        Compiled LangGraph workflow
+        Compiled LangGraph workflow with optional Langfuse tracing
 
     """
     # Initialize agents
@@ -78,6 +87,21 @@ def create_consultant_graph():
 
     # Compile the graph
     graph = workflow.compile(checkpointer=memory)
+
+    # Optionally add Langfuse tracing
+    if enable_langfuse is None:
+        enable_langfuse = os.getenv("ENABLE_LANGFUSE", "false").lower() == "true"
+
+    if enable_langfuse:
+        try:
+            from langfuse.langchain import CallbackHandler
+
+            langfuse_handler = CallbackHandler()
+            graph = graph.with_config({"callbacks": [langfuse_handler]})
+        except ImportError:
+            logger.warning("Langfuse not installed. Tracing disabled.")
+        except Exception as e:
+            logger.warning("Failed to initialize Langfuse: %s", e)
 
     return graph
 

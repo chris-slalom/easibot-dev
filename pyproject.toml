@@ -8,6 +8,7 @@ readme = "README.md"
 license = { file = "LICENSE" }
 
 dependencies = [
+    "langfuse>=3.10.1",
     "pydantic>=2.12.0",
     "pydantic-settings>=2.11.0",
 ]

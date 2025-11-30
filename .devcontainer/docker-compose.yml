@@ -15,11 +15,16 @@ services:
       - ~/.aws:/home/vscode/.aws:ro
     depends_on:
       - unstructured
+      - langfuse
     environment:
       - UNSTRUCTURED_API_URL=http://unstructured:8000
       # AWS configuration
       - AWS_PROFILE=${AWS_PROFILE:-default}
       - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-west-2}
+      # Langfuse configuration
+      - LANGFUSE_HOST=http://langfuse:3000
+      - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY:-pk-lf-local}
+      - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY:-sk-lf-local}
 
   unstructured:
     image: downloads.unstructured.io/unstructured-io/unstructured-api:latest
@@ -29,3 +34,41 @@ services:
     environment:
       - UNSTRUCTURED_API_KEY=${UNSTRUCTURED_API_KEY:-}
     restart: unless-stopped
+
+  langfuse-db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: langfuse
+      POSTGRES_DB: langfuse
+    volumes:
+      - langfuse-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U langfuse"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  langfuse:
+    image: langfuse/langfuse:latest
+    restart: unless-stopped
+    depends_on:
+      langfuse-db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://langfuse:langfuse@langfuse-db:5432/langfuse
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: changeme-langfuse-secret-key-minimum-32-characters
+      SALT: changeme-salt-minimum-32-characters
+      # Optional: Set initial admin credentials
+      LANGFUSE_INIT_USER_EMAIL: admin@easibot.local
+      LANGFUSE_INIT_USER_PASSWORD: admin123
+      LANGFUSE_INIT_PROJECT_NAME: easibot-dev
+      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: pk-lf-local
+      LANGFUSE_INIT_PROJECT_SECRET_KEY: sk-lf-local
+
+volumes:
+  langfuse-db-data:
