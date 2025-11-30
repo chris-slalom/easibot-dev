@@ -91,6 +91,21 @@ cp .env.example .env
 # Edit .env with your settings
 ```
 
+### Langfuse Integration (Optional)
+
+This project includes Langfuse for LLM observability and debugging. When running in the dev container, Langfuse is available at http://localhost:3000.
+
+**Quick start:**
+- Login: `admin@easibot.local` / `admin123`
+- Enable/disable: Set `ENABLE_LANGFUSE=true` in `.env` or `.env.local`
+- See [LANGFUSE.md](LANGFUSE.md) for detailed setup and usage
+
+All agent executions are automatically traced when enabled, providing:
+- Visual execution traces with timing
+- Input/output inspection at each step
+- Token usage and cost tracking
+- State inspection and debugging
+
 ### Run Locally (Development)
 
 ```python
