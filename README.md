@@ -32,9 +32,73 @@ For detailed setup instructions, configuration, and usage, see the [agents_pulum
 
 ### Model Info
 
-** Claude Sonnet 4.5 **
-Inference Profile ID: us.anthropic.claude-sonnet-4-5-20250929-v1:0
-Inference Profile ARN: arn:aws:bedrock:us-west-2:215352666168:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0
+**Claude Sonnet 4.5**
+- **Inference Profile ID**: `us.anthropic.claude-sonnet-4-5-20250929-v1:0`
+- **Inference Profile ARN**: `arn:aws:bedrock:us-west-2:215352666168:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0`
+
+### Claude Code Bedrock Configuration
+
+This repository is configured to use Claude Code with AWS Bedrock. The configuration is located in [.vscode/settings.json](.vscode/settings.json) and includes:
+
+```json
+{
+  "claudeCode.disableLoginPrompt": true,
+  "claudeCode.environmentVariables": [
+    {
+      "name": "AWS_REGION",
+      "value": "us-west-2"
+    },
+    {
+      "name": "CLAUDE_CODE_USE_BEDROCK",
+      "value": "1"
+    },
+    {
+      "name": "BEDROCK_MODEL_ID",
+      "value": "arn:aws:bedrock:us-west-2:215352666168:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+    }
+  ]
+}
+```
+
+#### Using a Non-Default AWS Profile
+
+If you need to use an AWS profile other than the default, add the `AWS_PROFILE` environment variable to your [.vscode/settings.json](.vscode/settings.json):
+
+```json
+{
+  "claudeCode.environmentVariables": [
+    {
+      "name": "AWS_REGION",
+      "value": "us-west-2"
+    },
+    {
+      "name": "AWS_PROFILE",
+      "value": "your-profile-name"
+    },
+    {
+      "name": "CLAUDE_CODE_USE_BEDROCK",
+      "value": "1"
+    },
+    {
+      "name": "BEDROCK_MODEL_ID",
+      "value": "arn:aws:bedrock:us-west-2:215352666168:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+    }
+  ]
+}
+```
+
+#### Additional AWS Configuration Options
+
+You can add any of the following environment variables to customize AWS Bedrock behavior:
+
+- **`AWS_PROFILE`**: Specify an AWS named profile from your `~/.aws/config`
+- **`AWS_ACCESS_KEY_ID`** and **`AWS_SECRET_ACCESS_KEY`**: Use explicit credentials (not recommended for version control)
+- **`AWS_SESSION_TOKEN`**: For temporary credentials (e.g., from AWS STS)
+- **`AWS_DEFAULT_REGION`**: Alternative to `AWS_REGION` for specifying the AWS region
+- **`AWS_ROLE_ARN`**: ARN of an IAM role to assume
+- **`AWS_WEB_IDENTITY_TOKEN_FILE`**: For EKS/Kubernetes service accounts
+
+**Security Note**: Never commit AWS credentials to version control. Use named profiles or environment-based authentication when possible.
 
 ## Unstructured.io API Container
 
