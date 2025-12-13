@@ -5,8 +5,9 @@ set -e  # Exit on error
 # Install dependencies
 uv sync
 
-# Run tests
-uv run nox -s test
+# Run tests (non-blocking for devcontainer startup)
+echo "Running tests..."
+uv run nox -s test || echo "⚠️  Tests failed - fix before committing"
 
 # Format and lint
 uv run nox -s fmt

@@ -1,4 +1,4 @@
-{
+p{
     "name": "uv",
     "dockerComposeFile": "../.devcontainer/docker-compose.yml",
     "service": "vscode",
